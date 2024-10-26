@@ -1,1 +1,1 @@
-# StudyTogether
+# Study Together
