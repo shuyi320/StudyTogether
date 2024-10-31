@@ -20,7 +20,9 @@ const Navbar = () => {
             alt="Study Together Logo"
             className="logo"
           />
-
+          <div className="search-box">
+            <input type="text" placeholder="Search..." />
+          </div>
           {/* Mobile responsive menu */}
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'}></i>

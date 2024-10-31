@@ -8,7 +8,11 @@
     width: 100%; 
     z-index: 999;
 }
-
+body {
+    background-color: #74AEDE; /* Match the navbar background color */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 .navbar-container {
     display: flex;
     justify-content: space-between; /* Ensure space between logo and menu */
@@ -96,4 +100,22 @@
         background-color: #fff;
         color: #242424;
     }
+}
+
+
+.search-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
 }
