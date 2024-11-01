@@ -2,7 +2,7 @@ import express from "express";
 import process from "node:process";
 import path from "node:path";
 import { sequelize } from "./Models/db.js";
-import apiRouter from './Routes/apiRoutes.js';
+import userRouter from './Routes/userRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -10,7 +10,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 // Load API routes
-app.use("/api", apiRouter);
+app.use("/api/users", userRouter);
 
 // 404 route
 app.use((req, res) => {
