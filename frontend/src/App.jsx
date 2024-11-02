@@ -1,18 +1,31 @@
 import { useState } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// Component Imports
+import Navbar from './components/Navbar';
+
+// Pages Imports
+import Home from "./pages/Home"; // Ensure this component exists
+import Chat from "./pages/Chat";
+import SignInPage from "./pages/SignIn"; 
+import SignUpPage from "./pages/SignUp"; 
 
 function App() {
   const [greeting, setGreeting] = useState('Hello, Study Buddy :)');
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="text-2xl font-bold mb-4">{greeting}</div>
-      <button
-        onClick={() => setGreeting('Welcome to StudyTogether!')}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-      >
-        Change Greeting
-      </button>
-    </div>
+    <>
+      <Navbar />
+      
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} /> {/* Redirect to home on root */}
+        <Route path="/home" element={<Home />} /> 
+        <Route path="/register" element={<SignUpPage />} /> 
+        <Route path="/login" element={<SignInPage />} /> 
+        <Route path="/chat" element={<Chat />} /> 
+        <Route path="*" element={<Navigate to="/home" />} /> {/* Redirect to home on 404 */}
+      </Routes>
+    </>
   );
 }
 
