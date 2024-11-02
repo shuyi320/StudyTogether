@@ -1,5 +1,9 @@
+import Sidebar from "../components/Sidebar";
+
 const Chat = () =>{
-    return <>Chat</>
+    return (<>
+        <Sidebar/>
+    </>)
 };
 
 export default Chat;
