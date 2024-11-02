@@ -23,8 +23,8 @@ const Navbar = () => {
         <div className="flex space-x-4">
 
 
-          <Link to="/" className="text-white ">Study Sessions</Link>
-          <Link to="/" className="text-white ">About Us</Link>
+          <Link to="/StudySession" className="text-white ">Study Sessions</Link>
+          <Link to="/AboutUs" className="text-white ">About Us</Link>
 
           {!isSignedIn ? (
             <>
