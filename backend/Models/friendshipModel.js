@@ -4,23 +4,23 @@ import { sequelize } from './_db.js'
 import User from './userModel.js';
 
 const Friendship = sequelize.define('Friendship', {
-    userId:{
-        type: DataTypes.INTEGER,
-        references:{
+    userId: {
+        type: DataTypes.STRING,
+        references: {
             model: User,
-            key: 'id',
+            key: 'clerkUserId',
         },
         primaryKey: true,
     },
-    friendId:{
-        type: DataTypes.INTEGER,
-        references:{
+    friendId: {
+        type: DataTypes.STRING,
+        references: {
             model: User,
-            key: 'id',
+            key: 'clerkUserId',
         },
         primaryKey: true,
     },
-    createdAt:{
+    createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
     },

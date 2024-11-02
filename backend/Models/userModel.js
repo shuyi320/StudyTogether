@@ -9,6 +9,7 @@ const User = sequelize.define('User', {
         unique: {
             msg: 'Clerk user ID must be unique.',
         },
+        primaryKey: true
     },
     username: {
         type: DataTypes.STRING,

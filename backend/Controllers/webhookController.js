@@ -62,7 +62,7 @@ const handleUserCreated = async (id, attributes) => {
         await User.create({
             clerkUserId: id, // Use id from verified event data
             username: attributes.username || 'DefaultUsername',
-            email: attributes.email_addresses[0]?.email_address || 'default@example.com', // Use first email address
+            email: attributes.email_addresses[0]?.email_address || 'default@example.com',
         });
         console.log(`User created: ${id}`);
     } catch (error) {
@@ -76,7 +76,7 @@ const handleUserUpdated = async (id, attributes) => {
         const [updatedRows] = await User.update(
             {
                 username: attributes.username || null,
-                email: attributes.email_addresses[0]?.email_address || null // Use first email address
+                email: attributes.email_addresses[0]?.email_address || null
             },
             { where: { clerkUserId: id } }
         );

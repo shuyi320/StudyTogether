@@ -18,41 +18,6 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/users", userRouter);
 app.use("/api/webhooks", webRouter);
 
-//Webhook
-// app.post("/api/webhooks", async (req, res) => {
-//   console.log("Received request");
-//   console.log("Headers:", req.headers);
-//   console.log("Payload:", req.body.toString());
-
-//   try {
-//     const payloadString = req.body.toString();
-//     const svixHeaders = req.headers;
-
-//     const wh = new Webhook(process.env.WEBHOOK_SECRET);
-//     const evt = wh.verify(payloadString, svixHeaders);
-
-//     const { id, ...attributes } = evt.data;
-//     const eventType = evt.type;
-
-//     if (eventType === 'user.created') {
-//       console.log(`userId ${id} is ${eventType}`);
-//       console.log(attributes);
-//     }
-
-//     res.status(200).json({
-//       success: true,
-//       message: "Webhook received",
-//     });
-
-//   } catch (error) {
-//     console.error("Error processing webhook:", error); // Log the error details
-//     res.status(400).json({
-//       success: false, // Indicate failure
-//       message: error.message,
-//     });
-//   }
-// });
-
 // Start the server and authenticate the database connection
 const startServer = async () => {
   console.log('Attempting to connect to the database...');
