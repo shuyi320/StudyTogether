@@ -2,7 +2,7 @@
 import express from 'express';
 
 //Import functionality
-import { registerUser, getExistingUsers, addFriend, getFriends } from '../Controllers/userController.js'; 
+import { getExistingUsers, addFriend, getFriends } from '../Controllers/userController.js';
 
 const router = express.Router();
 

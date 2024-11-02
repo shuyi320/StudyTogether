@@ -13,71 +13,71 @@ TODO:: Need to redo registerUser to where clerkUserId is stored instead of userI
 We can sync data by creating a new webwook and subscribing it to an event like whenever a new user is created/updated/deleted
 */
 
-const registerUser = async (req, res) => {
+// const registerUser = async (req, res) => {
 
-    try{        
+//     try{        
 
-        const {username, email, password} = req.body;
+//         const {username, email, password} = req.body;
 
-        //Verify that the username & email are both unique
-        // i.e) they don't exist in the database
+//         //Verify that the username & email are both unique
+//         // i.e) they don't exist in the database
 
-        const existingUser = await User.findOne({
-            where:{
-                username,
-                email,
-            },
-        })
+//         const existingUser = await User.findOne({
+//             where:{
+//                 username,
+//                 email,
+//             },
+//         })
 
-        if(existingUser){
-            res.status(400).json({error: "User already exists."});
-        }
+//         if(existingUser){
+//             res.status(400).json({error: "User already exists."});
+//         }
 
 
-        //Hash the password
-        const passwordHash = await bcrypt.hash(password, 10);
+//         //Hash the password
+//         const passwordHash = await bcrypt.hash(password, 10);
 
-        const user = await User.create({username, email, password: passwordHash});
-        
-        //Send a response with the created object
-        const userResponse ={
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          createdAt: user.createdAt,  
-        };
+//         const user = await User.create({username, email, password: passwordHash});
 
-        res.status(201).json(userResponse);
+//         //Send a response with the created object
+//         const userResponse ={
+//           id: user.id,
+//           username: user.username,
+//           email: user.email,
+//           createdAt: user.createdAt,  
+//         };
 
-    }catch(error){
-        res.status(400).json({error: error.message});
-    }
-};
+//         res.status(201).json(userResponse);
 
-const getExistingUsers = async(req, res) =>{
+//     }catch(error){
+//         res.status(400).json({error: error.message});
+//     }
+// };
+
+const getExistingUsers = async (req, res) => {
     try {
 
         const users = await User.findAll();
         res.json(users);
-        
+
     } catch (error) {
-        res.status(400).json({error : "Error fetching all existing users."});
+        res.status(400).json({ error: "Error fetching all existing users." });
     }
 }
 
-const addFriend = async (req, res) =>{
+const addFriend = async (req, res) => {
 
     try {
 
         //Validating data
-        const {userId, friendId} = req.body;
+        const { userId, friendId } = req.body;
 
-        if(userId === friendId){
-            return res.status(409).json({error : "You can't friend yourself :("});
+        if (userId === friendId) {
+            return res.status(409).json({ error: "You can't friend yourself :(" });
         }
 
         //Check if they are existing friends
-        
+
         const existingFriends = await Friendship.findOne({
             where: {
                 userId,
@@ -86,31 +86,31 @@ const addFriend = async (req, res) =>{
         });
 
         //existingFriends exists, they are already friends
-        if(existingFriends){
-            return res.status(409).json({error : "Friendship already exists."});
+        if (existingFriends) {
+            return res.status(409).json({ error: "Friendship already exists." });
         };
 
         //Create the friendship
-        const friendShip = await Friendship.create({userId, friendId});
+        const friendShip = await Friendship.create({ userId, friendId });
 
         res.status(200).json(friendShip);
 
     } catch (error) {
-        res.status(400).json({error : error.message});
+        res.status(400).json({ error: error.message });
     }
 
 };
 
-const getFriends = async (req, res) =>{
+const getFriends = async (req, res) => {
 
     try {
         const userId = req.params.userId;
-        const friendships = await Friendship.findAll({ where: { userId}});
+        const friendships = await Friendship.findAll({ where: { userId } });
         res.json(friendships);
 
     } catch (error) {
-        res.status(400).json({error : error.message});
+        res.status(400).json({ error: error.message });
     }
 };
 
-export { registerUser, getExistingUsers, addFriend, getFriends }; 
+export { getExistingUsers, addFriend, getFriends }; 

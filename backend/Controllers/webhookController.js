@@ -1,6 +1,6 @@
-
-//Import models
+// Import models
 import User from '../Models/userModel.js';
+import { Webhook } from 'svix'; // Ensure you import Webhook
 
 /*
 Webhook is an event-driven method of communication between applications.
@@ -14,56 +14,35 @@ Clerk - Payload Structure:
 
 const handleWebHook = async (req, res) => {
     // Log the incoming request body for debugging
-    console.log('Received webhook:', req.body);
-
-    const { type, data } = req.body;
-
-    // Basic validation of the data object
-    if (!data || !data.id) {
-        console.error('Invalid payload: Missing data or user ID');
-        return res.status(400).send('Invalid payload');
-    }
+    console.log("Received request");
+    console.log("Headers:", req.headers);
+    console.log("Payload:", req.body.toString());
 
     try {
-        switch (type) {
+        const payloadString = req.body.toString();
+        const svixHeaders = req.headers;
+
+        const wh = new Webhook(process.env.WEBHOOK_SECRET);
+        const evt = wh.verify(payloadString, svixHeaders);
+
+        const { id, ...attributes } = evt.data; // Using id from evt.data
+        const eventType = evt.type;
+
+        switch (eventType) {
             case 'user.created':
-                // Handle user created event
-                await User.create({
-                    clerkUserId: data.id,
-                    username: data.username || 'DefaultUsername',
-                    email: data.emailAddress || 'default@example.com',
-                });
-                console.log(`User created: ${data.id}`);
+                await handleUserCreated(id, attributes);
                 break;
 
             case 'user.updated':
-                // Handle user updated event
-                const [updatedRows] = await User.update(
-                    { 
-                        username: data.username || null,
-                        email: data.emailAddress || null 
-                    },
-                    { where: { clerkUserId: data.id } }
-                );
-                if (updatedRows === 0) {
-                    console.log(`No user found to update for ID: ${data.id}`);
-                } else {
-                    console.log(`User updated: ${data.id}`);
-                }
+                await handleUserUpdated(id, attributes);
                 break;
 
             case 'user.deleted':
-                // Handle user deletion
-                const deletedRows = await User.destroy({ where: { clerkUserId: data.id } });
-                if (deletedRows === 0) {
-                    console.log(`No user found to delete for ID: ${data.id}`);
-                } else {
-                    console.log(`User deleted: ${data.id}`);
-                }
+                await handleUserDeleted(id);
                 break;
 
             default:
-                console.log(`Unhandled event type: ${type}`);
+                console.log(`Unhandled event type: ${eventType}`);
         }
 
         // Respond with a 200 OK status
@@ -74,6 +53,54 @@ const handleWebHook = async (req, res) => {
         console.error(error.stack);
         // Respond with a 500 Internal Server Error status
         res.status(500).send('Error handling webhook');
+    }
+};
+
+// Separate function to handle user creation
+const handleUserCreated = async (id, attributes) => {
+    try {
+        await User.create({
+            clerkUserId: id, // Use id from verified event data
+            username: attributes.username || 'DefaultUsername',
+            email: attributes.email_addresses[0]?.email_address || 'default@example.com', // Use first email address
+        });
+        console.log(`User created: ${id}`);
+    } catch (error) {
+        console.error(`Failed to create user with ID ${id}:`, error);
+    }
+};
+
+// Separate function to handle user updates
+const handleUserUpdated = async (id, attributes) => {
+    try {
+        const [updatedRows] = await User.update(
+            {
+                username: attributes.username || null,
+                email: attributes.email_addresses[0]?.email_address || null // Use first email address
+            },
+            { where: { clerkUserId: id } }
+        );
+        if (updatedRows === 0) {
+            console.log(`No user found to update for ID: ${id}`);
+        } else {
+            console.log(`User updated: ${id}`);
+        }
+    } catch (error) {
+        console.error(`Failed to update user with ID ${id}:`, error);
+    }
+};
+
+// Separate function to handle user deletion
+const handleUserDeleted = async (id) => {
+    try {
+        const deletedRows = await User.destroy({ where: { clerkUserId: id } });
+        if (deletedRows === 0) {
+            console.log(`No user found to delete for ID: ${id}`);
+        } else {
+            console.log(`User deleted: ${id}`);
+        }
+    } catch (error) {
+        console.error(`Failed to delete user with ID ${id}:`, error);
     }
 };
 

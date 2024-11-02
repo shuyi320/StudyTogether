@@ -1,32 +1,50 @@
-//Define the user schema
+// Define the user schema
 import { DataTypes } from 'sequelize';
-import { sequelize } from './_db.js'
+import { sequelize } from './_db.js';
 
 const User = sequelize.define('User', {
-    username:{
-        type: DataTypes.STRING,
+    clerkUserId: {
+        type: DataTypes.STRING, // Assuming this is a string
         allowNull: false,
-        unique: true,
-    },
-    email:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate:{
-            isEmail:true,
+        unique: {
+            msg: 'Clerk user ID must be unique.',
         },
     },
-    password:{
+    username: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
-            len: [6],
+        unique: {
+            msg: 'Username must be unique.',
         },
     },
-    createdAt:{
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: {
+            msg: 'Email must be unique.',
+        },
+        validate: {
+            isEmail: {
+                msg: 'Must be a valid email address.',
+            },
+        },
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+            len: {
+                args: [6, 100], // Set a minimum and maximum length
+                msg: 'Password must be at least 6 characters long.',
+            },
+        },
+    },
+    createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
     },
+}, {
+    timestamps: false, // If you don't need updatedAt, keep this as false
 });
 
 export default User;
