@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from '@clerk/clerk-react';
 
 // Component Imports
-import Navbar from './components/Navbar';
 
 // Pages Imports
 import Home from "./pages/Home"; // Ensure this component exists
 import Chat from "./pages/Chat";
-import SignInPage from "./pages/SignIn";
-import SignUpPage from "./pages/SignUp";
+import DashBoard from './pages/Dashboard';
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+
+const ProtectedRoute = ({ element }) => {
+  const { isSignedIn } = useAuth();
+  return isSignedIn ? element : <Navigate to="/login" />;
+};
 
 function App() {
-  const [greeting, setGreeting] = useState('Hello, Study Buddy :)');
 
   return (
     <>
@@ -20,7 +25,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat" element={<ProtectedRoute element={<Chat />} />} /> {/* Protect this route */}
+        <Route path="/dashboard" element={<ProtectedRoute element={<DashBoard />} />} /> {/* Protect this route */}
         <Route path="*" element={<Navigate to="/home" />} /> {/* Redirect to home on 404 */}
       </Routes>
     </>

@@ -1,10 +1,12 @@
 //This file describes all the routes for creating/modifying users
 import express from 'express';
+
+//Import functionality
 import { registerUser, getExistingUsers, addFriend, getFriends } from '../Controllers/userController.js'; 
 
 const router = express.Router();
 
-router.post('/register', registerUser);
+//router.post('/register', registerUser);
 router.get('/', getExistingUsers);
 
 router.post('/:userId/relationships', addFriend);

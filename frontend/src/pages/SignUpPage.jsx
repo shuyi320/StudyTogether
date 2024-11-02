@@ -16,7 +16,6 @@ const SignUp = () => {
         <ClerkSignUp />
       </div>
     </>
-
   );
 };
 

@@ -37,6 +37,8 @@ const Navbar = () => {
             <>
               {/* You are able to see this after you're signed in*/}
               <Link to="/chat" className="text-white">Chat</Link>
+              <Link to="/dashboard" className="text-white">Dashboard</Link>
+
               <UserButton />
 
             </>

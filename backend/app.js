@@ -2,15 +2,21 @@ import express from "express";
 import process from "node:process";
 import path from "node:path";
 import { sequelize } from "./Models/_db.js";
+import { clerkMiddleware } from '@clerk/express'
+
+//Import routers
 import userRouter from './Routes/userRoutes.js';
+import webRouter from './Routes/webhookRoutes.js';
 
 const app = express();
 app.use(express.json());
+app.use(clerkMiddleware())
 
 const PORT = process.env.PORT || 5000;
 
 // Load API routes
 app.use("/api/users", userRouter);
+app.use("/api/webhook", webRouter);
 
 // 404 route
 app.use((req, res) => {
