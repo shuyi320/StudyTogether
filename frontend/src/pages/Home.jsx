@@ -1,11 +1,20 @@
 // pages/Home.js
 import React from 'react';
 
+// Import Components
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero'; // Renamed for clarity
+
 const Home = () => {
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">Welcome to StudyTogether!</h1>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+      <div className="container mx-auto p-4">
+        <h2 className="text-2xl font-bold text-center mt-8">Explore More</h2>
+        {/* Add additional sections or components here */}
+      </div>
+    </>
   );
 };
 

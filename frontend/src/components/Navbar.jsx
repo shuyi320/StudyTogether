@@ -1,7 +1,13 @@
 // components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@clerk/clerk-react';
+
+//Import assets
+import Logo from '../assets/StudyTogetherIcon.png';
+
+//Import Third Party
+import { UserButton, useAuth } from '@clerk/clerk-react';
+
 
 const Navbar = () => {
   const { isSignedIn, signOut } = useAuth();
@@ -9,16 +15,33 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-lg font-bold">StudyTogether</Link>
+        <div className="flex items-center">
+          {/* Logo */}
+          <img src={Logo} alt="StudyTogether Logo" className="h-8 mr-2" />
+          <Link to="/" className="text-white text-lg font-bold">Study Buddy</Link>
+        </div>
         <div className="flex space-x-4">
-          <Link to="/login" className="text-white">Login</Link>
-          <Link to="/register" className="text-white">Register</Link>
-          {isSignedIn && (
+
+
+          <Link to="/" className="text-white ">Study Sessions</Link>
+          <Link to="/" className="text-white ">About Us</Link>
+
+          {!isSignedIn ? (
             <>
+              {/* NOT logged in*/}
+
+              <Link to="/login" className="text-white">Login</Link>
+              <Link to="/register" className="text-white">Register</Link>
+            </>
+          ) : (
+            <>
+              {/* You are able to see this after you're signed in*/}
               <Link to="/chat" className="text-white">Chat</Link>
-              <button onClick={signOut} className="text-white">Sign Out</button>
+              <UserButton />
+
             </>
           )}
+
         </div>
       </div>
     </nav>

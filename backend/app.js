@@ -1,7 +1,7 @@
 import express from "express";
 import process from "node:process";
 import path from "node:path";
-import { sequelize } from "./Models/db.js";
+import { sequelize } from "./Models/_db.js";
 import userRouter from './Routes/userRoutes.js';
 
 const app = express();

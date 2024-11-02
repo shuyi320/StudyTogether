@@ -3,9 +3,14 @@
 //This script will import a database model and implement functions for routes based on requests
 import User from '../Models/userModel.js';
 import Friendship from "../Models/friendshipModel.js";
+import { Clerk } from '@clerk/clerk-sdk-node'; // Assuming you use it for backend validations
 
 import bcrypt from 'bcrypt';
 
+/*
+TODO:: Need to redo registerUser to where clerkUserId is stored instead of userId
+We can sync data by creating a new webwook and subscribing it to an event like whenever a new user is created/updated/deleted
+*/
 const registerUser = async (req, res) => {
 
     try{        
