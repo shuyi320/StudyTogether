@@ -1,4 +1,4 @@
-//userController
+//userController.js
 //Functionality for userRoutes requests
 //This script will import a database model and implement functions for routes based on requests
 import User from '../Models/userModel.js';
