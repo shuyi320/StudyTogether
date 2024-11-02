@@ -1,5 +1,4 @@
 // components/Hero.js
-import React from 'react';
 import HeroImage from '../assets/StudyingGroup.jpeg';
 
 const Hero = () => {
