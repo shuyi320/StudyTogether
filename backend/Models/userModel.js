@@ -1,6 +1,6 @@
 //Define the user schema
 import { DataTypes } from 'sequelize';
-import {sequelize} from './db.js'
+import { sequelize } from './db.js'
 
 const User = sequelize.define('User', {
     username:{

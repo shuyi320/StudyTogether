@@ -8,8 +8,24 @@ import bcrypt from 'bcrypt';
 
 const registerUser = async (req, res) => {
 
-    try{
+    try{        
+
         const {username, email, password} = req.body;
+
+        //Verify that the username & email are both unique
+        // i.e) they don't exist in the database
+
+        const existingUser = await User.findOne({
+            where:{
+                username,
+                email,
+            },
+        })
+
+        if(existingUser){
+            res.status(400).json({error: "User already exists."});
+        }
+
 
         //Hash the password
         const passwordHash = await bcrypt.hash(password, 10);
@@ -46,12 +62,13 @@ const addFriend = async (req, res) =>{
 
     try {
 
+        //Validating data
+        const {userId, friendId} = req.body;
+
         if(userId === friendId){
             return res.status(409).json({error : "You can't friend yourself :("});
         }
 
-        const {userId, friendId} = req.body;
-        
         //Check if they are existing friends
         
         const existingFriends = await Friendship.findOne({

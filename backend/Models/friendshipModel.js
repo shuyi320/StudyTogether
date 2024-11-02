@@ -1,6 +1,6 @@
 //Define the friendship schema
 import { DataTypes } from 'sequelize';
-import {sequelize} from './db.js'
+import { sequelize } from './db.js'
 import User from './userModel.js';
 
 const Friendship = sequelize.define('Friendship', {
