@@ -1,55 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from "../components/Sidebar";
+
+
+import EventCard from '../components/EventCard'; // Import your EventCard component
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 
 const EventList = () => {
-    const [events, setEvents] = useState([]); // State to store fetched events
-    const [loading, setLoading] = useState(true); // State to handle loading status
-    const [error, setError] = useState(null); // State to handle errors
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(1);
 
-    // Function to fetch events from the backend
+    useEffect(() => {
+        fetchEvents();
+    }, [page]);
+
     const fetchEvents = async () => {
-        try {
-            const response = await fetch('YOUR_API_ENDPOINT/events'); // Replace with your API endpoint
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setEvents(data); // Assuming the API returns an array of events
-        } catch (err) {
-            setError(err.message); // Set error message in state
-        } finally {
-            setLoading(false); // Set loading to false after fetching
+        setLoading(true);
+        const response = await fetch(`/api/events?page=${page}`);
+        const newEvents = await response.json();
+        setEvents((prev) => [...prev, ...newEvents]);
+        setLoading(false);
+    };
+
+    const handleScroll = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 1 >=
+            document.documentElement.offsetHeight
+        ) {
+            setPage((prev) => prev + 1);
         }
     };
 
     useEffect(() => {
-        fetchEvents(); // Fetch events when the component mounts
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
-        <div className="flex justify-around">
-            <div className="flex-col">
-                <Sidebar />
-                <div className="flex gap-x-16">
-                    <h1 className='flex-1'>Event List</h1>
+        <>
+            <Sidebar />
+            <div className="container mx-auto p-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {events.map((event) => (
+                        <EventCard
+                            key={event.id}
+                            title={event.title}
+                            date={event.date}
+                            description={event.description}
+                        />
+                    ))}
                 </div>
-                {loading ? (
-                    <p>Loading events...</p>
-                ) : error ? (
-                    <p>Error: {error}</p>
-                ) : (
-                    <div className="event-list">
-                        {events.map(event => (
-                            <div key={event.id} className="event-item">
-                                <h2>{event.title}</h2>
-                                <p>{event.description}</p>
-                                {/* Add more event details as needed */}
-                            </div>
-                        ))}
-                    </div>
-                )}
+                {loading && <p className="text-center mt-4">Loading more events...</p>}
             </div>
-        </div>
+        </>
+
     );
 };
 

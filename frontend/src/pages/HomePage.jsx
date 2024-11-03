@@ -4,6 +4,7 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import AboutUs from '../components/AboutUs';
+import Footer from '../components/Footer';
 
 const Home = () => {
   return (
@@ -11,7 +12,6 @@ const Home = () => {
       <Navbar />
       <Hero />
 
-      {/* About Us section with an ID for smooth scrolling */}
       <div id="about-us">
         <AboutUs />
       </div>
@@ -20,6 +20,8 @@ const Home = () => {
         <h2 className="text-2xl font-bold text-center mt-8">Explore More</h2>
         {/* Add additional sections or components here */}
       </div>
+      <Footer />
+
     </>
   );
 };
