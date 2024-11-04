@@ -38,7 +38,8 @@ const EventList = () => {
     return (
         <>
             <Sidebar />
-            <div className="container mx-auto p-4">
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="container mx-auto p-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {events.map((event) => (
                         <EventCard
@@ -51,14 +52,16 @@ const EventList = () => {
                 </div>
                 
                 {loading && <p className="text-center mt-4">Loading more events...</p>}
+                </div>
+                <div className='fixed bg-gray-300 text-black bottom-5 right-5 p-3 rounded-full'>
+                    <Link to='/EventCreationPage'>
+                        <span className="w-8 h-8 flex items-center justify-center text-2xl">
+                            <FaCalendarPlus />
+                        </span>
+                    </Link>
+                </div>
             </div>
-            <div className='fixed bg-gray-300 text-black bottom-5 right-5 p-3 rounded-full'>
-                <Link to='/EventCreationPage'>
-                    <span className="w-8 h-8 flex items-center justify-center text-2xl">
-                        <FaCalendarPlus />
-                    </span>
-                </Link>
-            </div>
+            
         </>
 
     );
