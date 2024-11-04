@@ -49,7 +49,8 @@ const CreateEvent = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold">Create Event</h1>
             {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit} className="mt-4">
@@ -98,6 +99,9 @@ const CreateEvent = () => {
                         </Link>
             </form>
         </div>
+
+        </div>
+        
     );
 };
 
