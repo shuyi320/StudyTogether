@@ -1,4 +1,3 @@
-import React from 'react';
 
 const SidebarItem = ({ name, href, isActive }) => {
     return (

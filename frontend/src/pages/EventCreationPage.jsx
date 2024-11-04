@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
+import { Link } from 'react-router-dom';
 
 const CreateEvent = () => {
     const { user } = useUser();
@@ -48,7 +49,8 @@ const CreateEvent = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold">Create Event</h1>
             {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit} className="mt-4">
@@ -92,8 +94,14 @@ const CreateEvent = () => {
                 >
                     {loading ? 'Creating...' : 'Create Event'}
                 </button>
+                <Link to="/EventList" className="px-4 py-2 ml-9 bg-gray-500 text-white rounded hover:bg-black transition duration-200">
+                            Go Back
+                        </Link>
             </form>
         </div>
+
+        </div>
+        
     );
 };
 
