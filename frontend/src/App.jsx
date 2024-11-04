@@ -14,6 +14,7 @@ import SignUpPage from "./pages/SignUpPage";
 import StudySession from './pages/StudySession';
 import EventList from './pages/EventList';
 import EventCreationPage from './pages/EventCreationPage'
+import AboutUsPage from './pages/AboutUsPage';
 
 // ProtectedRoute
 // Any route that is protected REQUIRES you to be signed in and can't be accessed without being signed in
@@ -29,6 +30,7 @@ function App() {
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} /> {/* Redirect to home on root */}
+        <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/StudySession" element={<StudySession />} />
         <Route path="/EventList" element={<EventList />} />
@@ -37,7 +39,6 @@ function App() {
         <Route path="/login" element={<SignInPage />} />
         <Route path="/chat" element={<ProtectedRoute element={<Chat />} />} /> {/* Protect this route */}
         <Route path="/dashboard" element={<ProtectedRoute element={<DashBoard />} />} /> {/* Protect this route */}
-        <Route path="*" element={<Navigate to="/home" />} /> {/* Redirect to home on 404 */}
       </Routes>
     </>
   );

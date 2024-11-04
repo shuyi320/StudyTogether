@@ -9,7 +9,8 @@ const router = express.Router();
 //router.post('/register', registerUser);
 router.get('/', getExistingUsers);
 
-router.post('/:userId/relationships', addFriend);
-router.get('/:userId/relationships', getFriends);
+router.post('/relationships', addFriend);
+router.get('/relationships', getFriends);
+router.get('/relationships/:id',);
 
 export default router; 

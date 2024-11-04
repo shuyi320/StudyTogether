@@ -1,15 +1,12 @@
 import express from "express";
 import process from "node:process";
 import { sequelize } from "./Models/_db.js";
-import bodyParser from 'body-parser'
-import { Webhook } from 'svix'
 
 //Import routers
 import userRouter from './Routes/userRoutes.js';
 import webRouter from './Routes/webhookRoutes.js';
 
 const app = express();
-app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
@@ -26,7 +23,7 @@ const startServer = async () => {
     console.log('Connection has been established successfully.');
 
     // Sync models to the database
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ alter: true });
     console.log('Models synced to the database.');
 
     app.listen(PORT, () => {

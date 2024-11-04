@@ -1,6 +1,7 @@
+import { Webhook } from 'svix';
 // Import models
-import User from '../Models/userModel.js';
-import { Webhook } from 'svix'; // Ensure you import Webhook
+import db from '../Models/_db.js';
+const { User } = db;
 
 /*
 Webhook is an event-driven method of communication between applications.
@@ -16,10 +17,10 @@ const handleWebHook = async (req, res) => {
     // Log the incoming request body for debugging
     console.log("Received request");
     console.log("Headers:", req.headers);
-    console.log("Payload:", req.body.toString());
+    console.log("Payload:", req.body); // Adjusted to log the actual payload object
 
     try {
-        const payloadString = req.body.toString();
+        const payloadString = JSON.stringify(req.body); // Convert body to JSON string
         const svixHeaders = req.headers;
 
         const wh = new Webhook(process.env.WEBHOOK_SECRET);
@@ -27,6 +28,8 @@ const handleWebHook = async (req, res) => {
 
         const { id, ...attributes } = evt.data; // Using id from evt.data
         const eventType = evt.type;
+
+        console.log(`Event type received: ${eventType}`);
 
         switch (eventType) {
             case 'user.created':
@@ -59,10 +62,12 @@ const handleWebHook = async (req, res) => {
 // Separate function to handle user creation
 const handleUserCreated = async (id, attributes) => {
     try {
+        console.log(`Creating user with ID: ${id}`);
         await User.create({
             clerkUserId: id, // Use id from verified event data
             username: attributes.username || 'DefaultUsername',
             email: attributes.email_addresses[0]?.email_address || 'default@example.com',
+            password: attributes.password
         });
         console.log(`User created: ${id}`);
     } catch (error) {
@@ -73,10 +78,12 @@ const handleUserCreated = async (id, attributes) => {
 // Separate function to handle user updates
 const handleUserUpdated = async (id, attributes) => {
     try {
+        console.log(`Updating user with ID: ${id}`);
         const [updatedRows] = await User.update(
             {
                 username: attributes.username || null,
-                email: attributes.email_addresses[0]?.email_address || null
+                email: attributes.email_addresses[0]?.email_address || null,
+                password: attributes.password
             },
             { where: { clerkUserId: id } }
         );
@@ -93,6 +100,7 @@ const handleUserUpdated = async (id, attributes) => {
 // Separate function to handle user deletion
 const handleUserDeleted = async (id) => {
     try {
+        console.log(`Deleting user with ID: ${id}`);
         const deletedRows = await User.destroy({ where: { clerkUserId: id } });
         if (deletedRows === 0) {
             console.log(`No user found to delete for ID: ${id}`);
