@@ -1,5 +1,4 @@
 // components/Navbar.js
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/StudyTogetherIcon.png';
 import { UserButton, useAuth } from '@clerk/clerk-react';
