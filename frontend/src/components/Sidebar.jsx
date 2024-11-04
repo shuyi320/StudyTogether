@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-
+import { useUser } from '@clerk/clerk-react';
 import { FaHome, FaUserFriends, FaCalendarAlt, FaComments } from 'react-icons/fa';
+import{useState, useEffect} from 'react'
 
 const navigation = [
   { name: "StudyTogether", href: "/home", icon: <FaHome /> },
@@ -12,10 +13,21 @@ const navigation = [
 ];
 
 export default function Sidebar() {
-  const location = useLocation();
-
+    const location = useLocation();
+    const {user} = useUser()
+    
   return (
-    <aside className="fixed top-10 left-0 z-40 w-60 h-screen bg-gray-900 text-white shadow-lg">
+      <aside className="fixed top-10 left-0 z-40 w-60 h-screen bg-gray-900 text-white shadow-lg">
+        <div className="lg:flex sm:flex flex-col items-center pt-10 gap-2">
+            <img
+                src={user.imageUrl}
+                alt={user.id}
+                className="rounded-full w-12 h-12 lg:w-20 lg:h-20"
+              />
+            <span className="lg:block text-gray-500 text-center font-poppins text-sm">
+                {user.emailAddresses[0].emailAddress}
+          </span>
+        </div>
       <ul className="mt-8 space-y-2">
         {navigation.map((item) => (
           <li key={item.name}>
