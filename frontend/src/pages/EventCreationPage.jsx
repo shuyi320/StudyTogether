@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
+import { Link } from 'react-router-dom';
 
 const CreateEvent = () => {
     const { user } = useUser();
@@ -92,6 +93,9 @@ const CreateEvent = () => {
                 >
                     {loading ? 'Creating...' : 'Create Event'}
                 </button>
+                <Link to="/EventList" className="px-4 py-2 ml-9 bg-gray-500 text-white rounded hover:bg-black transition duration-200">
+                            Go Back
+                        </Link>
             </form>
         </div>
     );
