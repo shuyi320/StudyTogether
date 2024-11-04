@@ -21,15 +21,18 @@ const Dashboard = () => {
         <>
             <Navbar />
             <Sidebar />
-            <div className="p-4 flex justify-center">
-                <div className="max-w-md w-full">
-                    <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+            <div className="p-20 flex justify-center">
+                <div className="">
+                    <h1 className="text-2xl text-gray-700 font-bold mb-4">Welcome Back</h1>
                     {userInfo ? (
-                        <div className="mt-4">
-                            <h2 className="text-xl">User Information:</h2>
-                            <p><strong>User ID:</strong> {userInfo.id}</p>
-                            <p><strong>First Name:</strong> {userInfo.firstName || 'N/A'}</p>
-                            <p><strong>Last Name:</strong> {userInfo.lastName || 'N/A'}</p>
+                        <div className='flex flex-col items-center p-4 bg-white shadow-lg rounded-md'>
+                            <div className='flex gap-6'>
+                                <img src={userInfo.imageUrl} className="flex-col-2 rounded-full w-20 h-20 lg:w-20 lg:h-20" />
+                                <div className='flex-col-8 py-3'>
+                                    <h3 className='text-xl font-bold'>{userInfo.username}</h3>
+                                    <p className='text-gray-500'>Buddy ID: {userInfo.id}</p>
+                                </div>
+                            </div> 
                         </div>
                     ) : (
                         <p>Loading user information...</p>
