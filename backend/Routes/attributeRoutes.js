@@ -2,7 +2,7 @@
 import express from 'express';
 
 //Import model
-import attributesModel from "../Models/attributes.model";
+import attributesModel from "../Models/attribute.model";
 
 //Import functionality
 

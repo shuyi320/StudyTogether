@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react'
 
 const navigation = [
   { name: "StudyTogether", href: "/home", icon: <FaHome /> },
-  { name: "Study Session", href: "/StudySession", icon: <FaUserFriends /> },
-  { name: "Event", href: "/EventList", icon: <FaCalendarAlt /> },
+  { name: "Study Session", href: "/sessions", icon: <FaUserFriends /> },
+  { name: "Event", href: "/events", icon: <FaCalendarAlt /> },
   { name: "Friends", href: "/friends", icon: <FaUserFriends /> },
   { name: "Chat", href: "/chat", icon: <FaComments /> },
 ];

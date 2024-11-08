@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom';
 
 const CreateEvent = () => {
     const { user } = useUser();
+
+    //Get all the necessary data to create an event from the form
+    /*      
+        organizerId : the current userId
+        chatRoomId : the id for the chatroom, can be NULL
+        title : the name for the event, 
+        date : the date of the event, can be NULL
+        description : the description for the event can be NULL
+    */
     const [eventData, setEventData] = useState({
         title: '',
         date: '',
         description: '',
     });
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [isFormVisible, setIsFormVisible] = useState(false); // State to control form visibility
