@@ -8,6 +8,24 @@ import Sidebar from "../components/Sidebar";
 
 const StudySession = () => {
 
+    //Contains Data for the study session
+    const [studySession, setStudySession] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(1);
+
+    // useEffect(() => {
+    //     fetchData();
+    // }, [page]);
+
+    // fetchData = async () => {
+    //     setLoading(true);
+    //     const response = await fetch(`/api/events?page=${page}`);
+    //     const newSessions = await response.json();
+    //     setStudySession((prev) => [...prev, ...newEvents]);
+    //     setLoading(false);
+    // };
+
+
 
     return (
         <>
@@ -18,7 +36,7 @@ const StudySession = () => {
                     <div className="flex gap-x-16">
                         {/* Load Existing study sessions*/}
                         {
-
+                            loading && <p className="text-center mt-4">Loading more sessions...</p>
                         }
                         <h1 className='flex-1'>StudySession</h1>
                         <h1 className='flex-1'>StudySession</h1>

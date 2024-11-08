@@ -33,7 +33,7 @@ export default function AboutUs() {
                             Join our online study rooms to collaborate with peers and enhance your learning experience.
                         </p>
                         <img className='h-auto max-h-48 w-auto mb-4' src={online} alt='Online Study Room' />
-                        <Link to='/StudySession' className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500">
+                        <Link to='/sessions' className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500">
                             Join Online Room
                         </Link>
                     </div>
@@ -46,7 +46,7 @@ export default function AboutUs() {
                             Find study groups and meet in person to collaborate and study together.
                         </p>
                         <img className='h-auto max-h-48 w-auto mb-4' src={chatBubble} alt='In-Person Study Group' />
-                        <Link to="/EventList" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500">
+                        <Link to="/events" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500">
                             Find In-Person Group
                         </Link>
                     </div>

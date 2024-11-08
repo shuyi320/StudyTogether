@@ -43,7 +43,6 @@ const Dashboard = () => {
 
     return (
         <>
-            <Navbar />
             <Sidebar />
 
             <div className="ml-60 p-20 flex justify-center">

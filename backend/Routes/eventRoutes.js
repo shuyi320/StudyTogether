@@ -8,8 +8,9 @@ import { createEvent } from '../Controllers/eventController';
 const router = express.Router();
 
 //POST
-router.post('/event/', createEvent);
+router.post('/events/', createEvent);
 
 //GET
+router.get('/events/',);
 
 export default router;
