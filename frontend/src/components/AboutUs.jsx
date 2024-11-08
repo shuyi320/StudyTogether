@@ -13,7 +13,7 @@ export default function AboutUs() {
             <section className='w-full flex flex-col items-center bg-gray-100 py-10'>
                 <div className="max-w-4xl mx-auto text-center px-4">
                     <h1 className="text-4xl md:text-5xl font-bold font-poppins text-primary mb-6">
-                        What is StudyTogether?
+                        What is StudyBuddy?
                     </h1>
                     <p className="text-gray-700 text-lg font-poppins mb-8">
                         As students and lifelong learners, we have all felt lost in a classroom before.

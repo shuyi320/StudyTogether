@@ -44,14 +44,26 @@ export default (sequelize) => {
     },
     );
 
+    // Define associations
+
     User.associate = (models) => {
         User.belongsToMany(models.User, {
             through: 'UserFriends',
             as: 'Friends',
             foreignKey: 'userId',
             otherKey: 'friendId',
+            onDelete: 'CASCADE',
+        });
+
+        User.belongsToMany(models.Event, {
+            through: 'EventUsers',
+            as: 'events',
+            foreignKey: 'userId',
+            otherKey: 'eventId',
+            onDelete: 'CASCADE',
         });
     };
+
 
     return User;
 };

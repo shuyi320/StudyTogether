@@ -3,8 +3,13 @@
 
 import express from 'express';
 
+import { createEvent } from '../Controllers/eventController';
+
 const router = express.Router();
 
+//POST
+router.post('/event/', createEvent);
 
+//GET
 
 export default router;

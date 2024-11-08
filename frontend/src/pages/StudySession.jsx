@@ -13,6 +13,7 @@ const StudySession = () => {
         <div className="flex-col">
             <Sidebar />
             <div className="flex gap-x-16">
+                {/* Load Existing study sessions*/}
                 {
 
                 }

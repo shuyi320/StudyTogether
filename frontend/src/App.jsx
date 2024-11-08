@@ -13,7 +13,6 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import StudySession from './pages/StudySession';
 import EventList from './pages/EventList';
-import EventCreationPage from './pages/EventCreationPage'
 import AboutUsPage from './pages/AboutUsPage';
 
 // ProtectedRoute
@@ -23,18 +22,20 @@ const ProtectedRoute = ({ element }) => {
   return isSignedIn ? element : <Navigate to="/login" />;
 };
 
+// Events are where 
+// StudySession are existing chat rooms
+
 function App() {
 
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} /> {/* Redirect to home on root */}
-        <Route path="/about-us" element={<AboutUsPage />} />
+        <Route path="/aboutus" element={<AboutUsPage />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/StudySession" element={<StudySession />} />
-        <Route path="/EventList" element={<EventList />} />
-        <Route path="/EventCreationPage" element={<ProtectedRoute element={<EventCreationPage />} />} />
+        <Route path="/sessions" element={<StudySession />} />
+        <Route path="/events" element={<EventList />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/chat" element={<ProtectedRoute element={<Chat />} />} /> {/* Protect this route */}

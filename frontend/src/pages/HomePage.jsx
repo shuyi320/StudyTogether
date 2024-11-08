@@ -12,7 +12,7 @@ const Home = () => {
       <Navbar />
       <Hero />
 
-      <div id="about-us">
+      <div id="aboutus">
         <AboutUs />
       </div>
 
@@ -20,8 +20,8 @@ const Home = () => {
         <h2 className="text-2xl font-bold text-center mt-8">Explore More</h2>
         {/* Add additional sections or components here */}
       </div>
-      <Footer />
 
+      <Footer />
     </>
   );
 };

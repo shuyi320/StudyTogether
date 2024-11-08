@@ -1,8 +1,11 @@
 //userController.js
+// getExistingUsers
+// addFriend
+// getFriends
 
 //Import Models
 import db from '../Models/_db.js';
-const { User } = db;
+const { User, Event } = db;
 
 const getExistingUsers = async (req, res) => {
     try {
@@ -69,4 +72,25 @@ const getFriends = async (req, res) => {
     }
 };
 
-export { getExistingUsers, addFriend, getFriends };
+const joinEvent = async (req, res) => {
+
+    try {
+
+        const { userId, eventId } = req.body;
+
+        // Find the event from eventId
+        const event = Event.findByPk(eventId);
+
+        // Validation checks
+        // 1. User can not join an event that they are currently in
+
+
+
+    } catch (error) {
+        console.error("Error joining event:", error);
+
+        return res.status(400).json("Error joining event.", error.message);
+    }
+};
+
+export { getExistingUsers, addFriend, getFriends, joinEvent };

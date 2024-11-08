@@ -6,11 +6,12 @@ import { getExistingUsers, addFriend, getFriends } from '../Controllers/userCont
 
 const router = express.Router();
 
-//router.post('/register', registerUser);
-router.get('/', getExistingUsers);
-
+// POST routes
 router.post('/relationships', addFriend);
+
+// GET routes
+router.get('/', getExistingUsers);
 router.get('/relationships', getFriends);
-router.get('/relationships/:id',);
+router.get('/relationships/:id',); // This route could potentially return chat data between users
 
 export default router; 

@@ -12,22 +12,26 @@ export default (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         createdAt: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
         },
     }, {
-        timestamps: false,       // No automatic createdAt/updatedAt fields
+        timestamps: false,
     });
 
     // Define associations
     ChatRoom.associate = (models) => {
         ChatRoom.belongsToMany(models.User, {
             through: 'UserChatRooms',  // The join table for the many-to-many relationship
+            as: 'participants',                 // alias for this association
             foreignKey: 'chatRoomId',  // The foreign key for the ChatRooms table
             otherKey: 'clerkUserId',    // The foreign key for the User table
-            as: 'Users',                 // Optional alias for this association
         });
     };
 
