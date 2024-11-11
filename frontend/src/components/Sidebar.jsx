@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaHome, FaUserFriends, FaCalendarAlt, FaComments, FaSpinner } from 'react-icons/fa';
 import { useLocation, Link } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';

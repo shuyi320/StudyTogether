@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 // Import components
-import Navbar from '../components/Navbar';
 
 // Import assets 
 import chatBubble from '../assets/chatBubbles.png';
